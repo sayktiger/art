@@ -4350,6 +4350,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_mask__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/mask */ "./src/js/modules/mask.js");
 /* harmony import */ var _modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/checkTextInputs */ "./src/js/modules/checkTextInputs.js");
 /* harmony import */ var _modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/showMoreStyles */ "./src/js/modules/showMoreStyles.js");
+/* harmony import */ var _modules_calc__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/calc */ "./src/js/modules/calc.js");
+
 
 
 
@@ -4365,7 +4367,47 @@ window.addEventListener("DOMContentLoaded", function () {
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__["default"])("[name = \"name\"]");
   Object(_modules_checkTextInputs__WEBPACK_IMPORTED_MODULE_4__["default"])("[name = \"message\"]");
   Object(_modules_showMoreStyles__WEBPACK_IMPORTED_MODULE_5__["default"])(".button-styles", "#styles .row");
+  Object(_modules_calc__WEBPACK_IMPORTED_MODULE_6__["default"])("#size", "#material", "#options", ".promocode", ".calc-price");
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/calc.js":
+/*!********************************!*\
+  !*** ./src/js/modules/calc.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var calc = function calc(size, material, option, promocode, result) {
+  var sizeBlock = document.querySelector(size),
+      materialBlock = document.querySelector(material),
+      optionBlock = document.querySelector(option),
+      promocodeBlock = document.querySelector(promocode),
+      resultBlock = document.querySelector(result);
+  var sum = 0;
+
+  var calcFunc = function calcFunc() {
+    sum = Math.round(+sizeBlock.value * +materialBlock.value + +optionBlock.value);
+
+    if (sizeBlock.value == "" || materialBlock.value == "") {
+      resultBlock.textContent = "\u041F\u043E\u0436\u0430\u043B\u0443\u0439\u0441\u0442\u0430 \u0432\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u0440\u0430\u0437\u043C\u0435\u0440 \u0438 \u043C\u0430\u0442\u0435\u0440\u0438\u0430\u043B \u043A\u0430\u0440\u0442\u0438\u043D\u044B";
+    } else if (promocodeBlock.value == "IWANTPOPART") {
+      resultBlock.textContent = Math.round(sum * 0.7);
+    } else {
+      resultBlock.textContent = sum;
+    }
+  };
+
+  sizeBlock.addEventListener("change", calcFunc);
+  materialBlock.addEventListener("change", calcFunc);
+  optionBlock.addEventListener("change", calcFunc);
+  promocodeBlock.addEventListener("input", calcFunc);
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (calc);
 
 /***/ }),
 
